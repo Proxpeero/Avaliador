@@ -39,26 +39,19 @@ run Sensores.m % script para geração de dados de sensores
 
 %% Módulo 02 - Algoritmos de Atitude
 
-% run TRIAD % script do algoritmo TRIAD
-% 
-% k_a = 0.5; % peso dos sensores de aceleração QUEST
-% k_m = 1; % peso dos sensores de campo magnetico QUEST
-% run QUEST.m % script do algoritmo QUEST
-% 
-% k_p = 10; % ganho proporcional do filtro Mahony
-% k_i = 10; % ganho integral do filtro Mahony
-% run Mahony.m % script do algoritmo Mahony
+run TRIAD % script do algoritmo TRIAD
 
-dt = t(2) - t(1);
-sigma_ap = 0; 
-sigma_mp = 0;
+k_a = 0.5; % peso dos sensores de aceleração QUEST
+k_m = 1; % peso dos sensores de campo magnetico QUEST
+run QUEST.m % script do algoritmo QUEST
 
-sigma_a = 5.0e-02;
-sigma_g = 1.0e-03;
-sigma_m = 0.8;
+k_p = 10; % ganho proporcional do filtro Mahony
+k_i = 10; % ganho integral do filtro Mahony
+run Mahony.m % script do algoritmo Mahony
 
-run EKF_02.m % script do algoritmo EKF
+std_q = 0.001;
+run EKF.m % script do algoritmo EKF
 
 %% Módulo 04 -  Plots de Saída
 % 
-% run Saidas.m % script com os plots de saídas
+run Saidas.m % script com os plots de saídas

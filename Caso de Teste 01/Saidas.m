@@ -1,77 +1,5 @@
 %% Resultados de Trajetória
 % 
-% % Trajetória Helicoidal
-% figure;
-% plot3(x, y, z, 'b', 'LineWidth', 2);
-% xlabel('Posição x [m]');
-% ylabel('Posição y [m]');
-% zlabel('Posição z [m]');
-% title('Trajetória Helicoidal');
-% grid on;
-% 
-% % Posições ao longo do tempo
-% figure;
-% subplot(3, 1, 1);
-% plot(t, x, 'b', 'LineWidth', 2);
-% xlabel('Tempo [s]');
-% ylabel('Posição x [m]');
-% title('Posição ao Longo do Tempo');
-% grid on;
-% 
-% subplot(3, 1, 2);
-% plot(t, y, 'b', 'LineWidth', 2);
-% xlabel('Tempo [s]');
-% ylabel('Posição y [m]');
-% grid on;
-% 
-% subplot(3, 1, 3);
-% plot(t, z, 'b', 'LineWidth', 2);
-% xlabel('Tempo [s]');
-% ylabel('Posição z [m]');
-% grid on;
-% 
-% % Velocidades ao longo do tempo
-% figure;
-% subplot(3, 1, 1);
-% plot(t, vx);
-% xlabel('Tempo [s]');
-% ylabel('Velocidade x [m/s]');
-% title('Velocidade ao Longo do Tempo');
-% grid on;
-% 
-% subplot(3, 1, 2);
-% plot(t, vy);
-% xlabel('Tempo [s]');
-% ylabel('Velocidade y [m/s]');
-% grid on;
-% 
-% subplot(3, 1, 3);
-% plot(t, vz);
-% xlabel('Tempo [s]');
-% ylabel('Velocidade z [m/s]');
-% grid on;
-% 
-% % Acelerações ao longo do tempo
-% figure;
-% subplot(3, 1, 1);
-% plot(t, ax);
-% xlabel('Tempo [s]');
-% ylabel('Aceleração x [m/s²]');
-% title('Aceleração ao Longo do Tempo');
-% grid on;
-% 
-% subplot(3, 1, 2);
-% plot(t, ay);
-% xlabel('Tempo [s]');
-% ylabel('Aceleração y [m/s²]');
-% grid on;
-% 
-% subplot(3, 1, 3);
-% plot(t, az);
-% xlabel('Tempo [s]');
-% ylabel('Aceleração z [m/s²]');
-% grid on;
-% 
 % % Atitude ao longo do tempo
 % figure;
 % subplot(3, 1, 1);
@@ -96,24 +24,24 @@
 % % Velocidade angular ao longo do tempo
 % figure;
 % subplot(3, 1, 1);
-% plot(t, d_roll_deg);
+% plot(t, d_roll_deg, 'b', 'LineWidth', 2);
 % xlabel('Tempo [s]');
 % ylabel('D_Roll [°/s]');
 % title('Velocidade Angular ao Longo do Tempo');
 % grid on;
 % 
 % subplot(3, 1, 2);
-% plot(t, d_pitch_deg);
+% plot(t, d_pitch_deg, 'b', 'LineWidth', 2);
 % xlabel('Tempo [s]');
 % ylabel('D_Pitch [°/s]');
 % grid on;
 % 
 % subplot(3, 1, 3);
-% plot(t, d_yaw_deg);
+% plot(t, d_yaw_deg, 'b', 'LineWidth', 2);
 % xlabel('Tempo [s]');
 % ylabel('D_Yaw [°/s]');
 % grid on;
-
+% 
 %% Resultado dos Sensores
 % 
 % % Acelerômetro
@@ -183,20 +111,20 @@
 % 
 % figure;
 % subplot(3, 1, 1);
-% plot(t, hx, 'b');
+% plot(t, hx_n, 'b');
 % xlabel('Tempo [s]');
 % ylabel('H_x [µT]');
 % title('Campo Magnético');
 % grid on;
 % 
 % subplot(3, 1, 2);
-% plot(t, hy, 'b');
+% plot(t, hy_n, 'b');
 % xlabel('Tempo [s]');
 % ylabel('H_y [µT]');
 % grid on;
 % 
 % subplot(3, 1, 3);
-% plot(t, hz, 'b');
+% plot(t, hz_n, 'b');
 % xlabel('Tempo [s]');
 % ylabel('H_z [µT]');
 % grid on;
@@ -222,210 +150,116 @@
 % ylabel('Altitude [m]');
 % grid on;
 % 
-% % Velocidades de GPS
-% figure;
-% subplot(3, 1, 1);
-% plot(t, vx_n);
-% xlabel('Tempo [s]');
-% ylabel('Velocidade x [m/s]');
-% title('Velocidade de GPS');
-% grid on;
-% 
-% subplot(3, 1, 2);
-% plot(t, vy_n);
-% xlabel('Tempo [s]');
-% ylabel('Velocidade y [m/s]');
-% grid on;
-% 
-% subplot(3, 1, 3);
-% plot(t, vz_n);
-% xlabel('Tempo [s]');
-% ylabel('Velocidade z [m/s]');
-% grid on;
-
 %% Resultados de Atitude
 
-% figure;
-% subplot(3, 1, 1);
-% hold on;
-% plot(t, roll_deg, 'b', 'DisplayName', 'Referência');
-% plot(t, roll_triad, 'r', 'DisplayName', 'TRIAD');
-% plot(t, roll_quest, 'g', 'DisplayName', 'QUEST');
-% plot(t, roll_mh, 'k', 'DisplayName', 'Mahony');
-% % plot(t, roll_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Roll [°]');
-% legend('show');
-% title('Atitude ao Longo do Tempo');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 2);
-% hold on;
-% plot(t, pitch_deg, 'b', 'DisplayName', 'Referência');
-% plot(t, pitch_triad, 'r', 'DisplayName', 'TRIAD');
-% plot(t, pitch_quest, 'g', 'DisplayName', 'QUEST');
-% plot(t, pitch_mh, 'k', 'DisplayName', 'Mahony');
-% % plot(t, pitch_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Pitch [°]');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 3);
-% hold on;
-% plot(t, yaw_deg, 'b', 'DisplayName', 'Referência');
-% plot(t, yaw_triad, 'r', 'DisplayName', 'TRIAD');
-% plot(t, yaw_quest, 'g', 'DisplayName', 'QUEST');
-% plot(t, yaw_mh, 'k', 'DisplayName', 'Mahony');
-% % plot(t, yaw_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Yaw [°]');
-% grid on;
-% hold off;
+figure;
+subplot(3, 1, 1);
+hold on;
+plot(t, roll_deg, 'b', 'LineWidth', 1.5, 'DisplayName', 'Referência');
+plot(t, roll_triad, 'r', 'LineWidth', 1.5, 'DisplayName', 'TRIAD');
+plot(t, roll_quest, 'g', 'LineWidth', 1.5, 'DisplayName', 'QUEST');
+plot(t, roll_mh, 'm', 'LineWidth', 1.5, 'DisplayName', 'Mahony');
+plot(t, roll_ekf, 'c', 'LineWidth', 1.5, 'DisplayName', 'EKF');
+xlabel('Tempo [s]');
+ylabel('Roll [°]');
+legend('show');
+title('Atitude ao Longo do Tempo');
+grid on;
+hold off;
 
-%% Resultados de Posição
-% 
-% figure;
-% subplot(3, 1, 1);
-% hold on;
-% plot(t, x, 'r', 'DisplayName', 'Referência');
-% plot(t, x_ekf, 'k', 'DisplayName', 'EKF');
-% % plot(t, x_ukf, 'b', 'DisplayName', 'UKF');
-% xlabel('Tempo [s]');
-% ylabel('Posição x [m]');
-% legend('show');
-% title('Posição ao Longo do Tempo');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 2);
-% hold on;
-% plot(t, y, 'r', 'DisplayName', 'Referência');
-% plot(t, y_ekf, 'k', 'DisplayName', 'EKF');
-% % plot(t, y_ekf, 'b', 'DisplayName', 'UKF');
-% xlabel('Tempo [s]');
-% ylabel('Posição y [m]');
-% legend('show');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 3);
-% hold on;
-% plot(t, z, 'r', 'DisplayName', 'Referência');
-% plot(t, z_ekf, 'k', 'DisplayName', 'EKF');
-% % plot(t, z_ukf, 'b', 'DisplayName', 'UKF');
-% xlabel('Tempo [s]');
-% ylabel('Posição z [m]');
-% legend('show');
-% grid on;
-% hold off;
+subplot(3, 1, 2);
+hold on;
+plot(t, pitch_deg, 'b', 'LineWidth', 1.5);
+plot(t, pitch_triad, 'r', 'LineWidth', 1.5);
+plot(t, pitch_quest, 'g', 'LineWidth', 1.5);
+plot(t, pitch_mh, 'm', 'LineWidth', 1.5);
+plot(t, pitch_ekf, 'c', 'LineWidth', 1.5);
+xlabel('Tempo [s]');
+ylabel('Pitch [°]');
+grid on;
+hold off;
 
-%% Resultados de Aceleração
-% 
-% figure;
-% subplot(3, 1, 1);
-% hold on;
-% plot(t, vx, 'r', 'DisplayName', 'Referência');
-% plot(t, vx_ekf, 'k', 'DisplayName', 'EKF');
-% % plot(t, vx_ukf, 'b', 'DisplayName', 'UKF');
-% xlabel('Tempo [s]');
-% ylabel('Aceleração x [m/s]');
-% legend('show');
-% title('Aceleração ao Longo do Tempo');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 2);
-% hold on;
-% plot(t, vy, 'r', 'DisplayName', 'Referência');
-% plot(t, vy_ekf, 'k', 'DisplayName', 'EKF');
-% % plot(t, vy_ukf, 'b', 'DisplayName', 'UKF');
-% xlabel('Tempo [s]');
-% ylabel('Aceleração y [m/s]');
-% legend('show');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 3);
-% hold on;
-% plot(t, vz, 'r', 'DisplayName', 'Referência');
-% plot(t, vz_ekf, 'k', 'DisplayName', 'EKF');
-% % plot(t, vz_ukf, 'b', 'DisplayName', 'UKF');
-% xlabel('Tempo [s]');
-% ylabel('Aceleração z [m/s]');
-% legend('show');
-% grid on;
-% hold off;
+subplot(3, 1, 3);
+hold on;
+plot(t, yaw_deg, 'b', 'LineWidth', 1.5);
+plot(t, yaw_triad, 'r', 'LineWidth', 1.5);
+plot(t, yaw_quest, 'g', 'LineWidth', 1.5);
+plot(t, yaw_mh, 'm', 'LineWidth', 1.5);
+plot(t, yaw_ekf, 'c', 'LineWidth', 1.5);
+xlabel('Tempo [s]');
+ylabel('Yaw [°]');
+grid on;
+hold off;
 
 %% Desempenho
-% 
-% % Número de amostras
-% N = length(t);
-% 
-% % Inicializar variáveis para armazenar RMSE ao longo do tempo
-% RMSE_roll_triad = zeros(N, 1);
-% RMSE_pitch_triad = zeros(N, 1);
-% RMSE_yaw_triad = zeros(N, 1);
-% RMSE_roll_quest = zeros(N, 1);
-% RMSE_pitch_quest = zeros(N, 1);
-% RMSE_yaw_quest = zeros(N, 1);
-% RMSE_roll_mh = zeros(N, 1);
-% RMSE_pitch_mh = zeros(N, 1);
-% RMSE_yaw_mh = zeros(N, 1);
-% 
-% for i = 1:N
-%     RMSE_roll_triad(i) = sqrt(mean((roll(1:i) - roll_triad(1:i)).^2));
-%     RMSE_pitch_triad(i) = sqrt(mean((pitch(1:i) - pitch_triad(1:i)).^2));
-%     RMSE_yaw_triad(i) = sqrt(mean((yaw(1:i) - yaw_triad(1:i)).^2));
-% 
-%     RMSE_roll_quest(i) = sqrt(mean((roll(1:i) - roll_quest(1:i)).^2));
-%     RMSE_pitch_quest(i) = sqrt(mean((pitch(1:i) - pitch_quest(1:i)).^2));
-%     RMSE_yaw_quest(i) = sqrt(mean((yaw(1:i) - yaw_quest(1:i)).^2));
-% 
-%     RMSE_roll_mh(i) = sqrt(mean((roll(1:i) - roll_mh(1:i)).^2));
-%     RMSE_pitch_mh(i) = sqrt(mean((pitch(1:i) - pitch_mh(1:i)).^2));
-%     RMSE_yaw_mh(i) = sqrt(mean((yaw(1:i) - yaw_mh(1:i)).^2));
-% end
 
-% % Calcular o RMSE de atitude do EKF
-% RMSE_roll_EKF = sqrt(mean((roll - roll_EKF).^2));
-% RMSE_pitch_EKF = sqrt(mean((pitch - pitch_EKF).^2));
-% RMSE_yaw_EKF = sqrt(mean((yaw - yaw_EKF).^2));
+% Número de amostras
+N = length(t);
 
+% Inicializar variáveis para armazenar RMSE ao longo do tempo
+RMSE_roll_triad = zeros(N, 1);
+RMSE_pitch_triad = zeros(N, 1);
+RMSE_yaw_triad = zeros(N, 1);
+RMSE_roll_quest = zeros(N, 1);
+RMSE_pitch_quest = zeros(N, 1);
+RMSE_yaw_quest = zeros(N, 1);
+RMSE_roll_mh = zeros(N, 1);
+RMSE_pitch_mh = zeros(N, 1);
+RMSE_yaw_mh = zeros(N, 1);
+RMSE_roll_ekf = zeros(N, 1);
+RMSE_pitch_ekf = zeros(N, 1);
+RMSE_yaw_ekf = zeros(N, 1);
 
-% figure;
-% subplot(3, 1, 1);
-% hold on;
-% plot(t, RMSE_roll_triad, 'r', 'DisplayName', 'RMSE TRIAD');
-% plot(t, RMSE_roll_quest, 'g', 'DisplayName', 'RMSE QUEST');
-% plot(t, RMSE_roll_mh, 'k', 'DisplayName', 'RMSE Mahony');
-% % plot(t, roll_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Roll [°]');
-% legend('show');
-% title('Atitude ao Longo do Tempo');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 2);
-% hold on;
-% plot(t, RMSE_pitch_triad, 'r', 'DisplayName', 'RMSE TRIAD');
-% plot(t, RMSE_pitch_quest, 'g', 'DisplayName', 'RMSE QUEST');
-% plot(t, RMSE_pitch_mh, 'k', 'DisplayName', 'RMSE Mahony');
-% % plot(t, pitch_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Pitch [°]');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 3);
-% hold on;
-% plot(t, RMSE_yaw_triad, 'r', 'DisplayName', 'RMSE TRIAD');
-% plot(t, RMSE_yaw_quest, 'g', 'DisplayName', 'RMSE QUEST');
-% plot(t, RMSE_yaw_mh, 'k', 'DisplayName', 'RMSE Mahony');
-% % plot(t, yaw_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Yaw [°]');
-% grid on;
-% hold off;
+for i = 1:N
+    RMSE_roll_triad(i) = sqrt(mean((roll(1:i) - roll_triad(1:i)).^2));
+    RMSE_pitch_triad(i) = sqrt(mean((pitch(1:i) - pitch_triad(1:i)).^2));
+    RMSE_yaw_triad(i) = sqrt(mean((yaw(1:i) - yaw_triad(1:i)).^2));
+
+    RMSE_roll_quest(i) = sqrt(mean((roll(1:i) - roll_quest(1:i)).^2));
+    RMSE_pitch_quest(i) = sqrt(mean((pitch(1:i) - pitch_quest(1:i)).^2));
+    RMSE_yaw_quest(i) = sqrt(mean((yaw(1:i) - yaw_quest(1:i)).^2));
+
+    RMSE_roll_mh(i) = sqrt(mean((roll(1:i) - roll_mh(1:i)).^2));
+    RMSE_pitch_mh(i) = sqrt(mean((pitch(1:i) - pitch_mh(1:i)).^2));
+    RMSE_yaw_mh(i) = sqrt(mean((yaw(1:i) - yaw_mh(1:i)).^2));
+    
+    RMSE_roll_ekf(i) = sqrt(mean((roll(1:i) - roll_ekf(1:i)).^2));
+    RMSE_pitch_ekf(i) = sqrt(mean((pitch(1:i) - pitch_ekf(1:i)).^2));
+    RMSE_yaw_ekf(i) = sqrt(mean((yaw(1:i) - yaw_ekf(1:i)).^2));
+end
+
+figure;
+subplot(3, 1, 1);
+hold on;
+plot(t, RMSE_roll_triad, 'r','LineWidth', 1.5, 'DisplayName', 'RMSE TRIAD');
+plot(t, RMSE_roll_quest, 'g','LineWidth', 1.5, 'DisplayName', 'RMSE QUEST');
+plot(t, RMSE_roll_mh, 'm','LineWidth', 1.5, 'DisplayName', 'RMSE Mahony');
+plot(t, RMSE_roll_ekf, 'c','LineWidth', 1.5, 'DisplayName', 'RMSE EKF');
+xlabel('Tempo [s]');
+ylabel('Roll [°]');
+legend('show');
+title('Atitude ao Longo do Tempo');
+grid on;
+hold off;
+
+subplot(3, 1, 2);
+hold on;
+plot(t, RMSE_pitch_triad, 'r','LineWidth', 1.5);
+plot(t, RMSE_pitch_quest, 'g','LineWidth', 1.5);
+plot(t, RMSE_pitch_mh, 'm','LineWidth', 1.5);
+plot(t, RMSE_pitch_ekf, 'c','LineWidth', 1.5);
+xlabel('Tempo [s]');
+ylabel('Pitch [°]');
+grid on;
+hold off;
+
+subplot(3, 1, 3);
+hold on;
+plot(t, RMSE_yaw_triad, 'r','LineWidth', 1.5);
+plot(t, RMSE_yaw_quest, 'g','LineWidth', 1.5);
+plot(t, RMSE_yaw_mh, 'm','LineWidth', 1.5);
+ plot(t, RMSE_yaw_ekf, 'c','LineWidth', 1.5);
+xlabel('Tempo [s]');
+ylabel('Yaw [°]');
+grid on;
+hold off;

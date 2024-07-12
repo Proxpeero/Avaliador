@@ -1,35 +1,35 @@
 %% EKF
+dt = 0.03;
+x_k = [1; 0; 0; 0; 0; 0; 0]; % Vetor de estado inicial
+P_k = eye(7); % Matriz de covariância inicial
 
-x_k = [1; 0; 0; 0; 0; 0; 0; 0; 0; 0];
-P_k = eye(10);
-
-x_hist = zeros(10, length(t));
-Att = zeros(3, length(t));
+x_hist = zeros(7, length(t)); % Inicialização da matriz de histórico de estados
+Att = zeros(3, length(t)); % Inicialização da matriz de ângulos de atitude
 
 for i = 1:length(t)
-    
-    acc = [ax_n(i) ay_n(i) az_n(i)];
-    gyro = [d_roll_n(i) d_pitch_n(i) d_yaw_n(i)];
-    mag = [mx_n(i) my_n(i) mz_n(i)];
-    vel_GPS = [vx_n(i) vy_n(i) vz_n(i)];
-    pos_GPS = [lat_n(i) lon_n(i) alt_n(i)];
-    heading = [hx_n(i) hy_n(i) hz_n(i)];
-    
+    % Leitura dos sensores
+    acc = [ax_n(i); ay_n(i); az_n(i)];
+    gyro = [d_roll_n(i); d_pitch_n(i); d_yaw_n(i)];
+    mag = [mx_n(i); my_n(i); mz_n(i)];
+    h   = [hx(i) hy(i) hz(i)];
+
     % Predição
-    [x_k1_, P_k1_] = predicao(acc, gyro, dt, x_k, P_k, g', mrp_q, mrp_p, mrp_v);
+    [x_k1_, P_k1_] = EKF_Prediction(gyro, dt, x_k, P_k, std_q, std_gyro);
     
     % Atualização
-    [x_k1, P_k1] = atualizacao(acc, mag, heading, vel_GPS, pos_GPS, g, x_k1_, P_k1_, mcm_a, mcm_m, mcm_v, mcm_p);
+    [x_k1, P_k1] = EKF_Update(acc, mag, x_k1_, P_k1_, std_acc, std_mag, g, h);
     
     % Atualização dos estados
-    x_k = x_k1_;
+    x_k = x_k1;
     P_k = P_k1;
     
     % Armazenamento dos resultados
     x_hist(:, i) = x_k;
     
-    q = [x_hist(1,:) x_hist(2,:) x_hist(3,:) x_hist(4,:)];
+    % Extração do quatérnion atual para conversão
+    q = x_hist(1:4, i); % Quatérnion atual
     
+    % Conversão do quatérnion para ângulos de Euler
     Att(:, i) = Q2E(q);
 end
 
@@ -38,34 +38,34 @@ pitch_ekf = mod((mod(rad2deg(Att(2, :)), 360)) + 90, 180) - 90;
 yaw_ekf = wrapTo180(rad2deg(Att(3, :)));
 
 %% Plots das Saídas
-
-% Atitude
-figure;
-subplot(3, 1, 1);
-hold on;
-plot(t, roll_deg, 'b', 'DisplayName', 'Referência');
-plot(t, roll_ekf, 'r', 'DisplayName', 'EKF');
-xlabel('Tempo [s]');
-ylabel('Roll [°]');
-legend('show');
-title('Atitude ao Longo do Tempo');
-grid on;
-hold off;
-
-subplot(3, 1, 2);
-hold on;
-plot(t, pitch_deg, 'b');
-plot(t, pitch_ekf, 'r');
-xlabel('Tempo [s]');
-ylabel('Pitch [°]');
-grid on;
-hold off;
-
-subplot(3, 1, 3);
-hold on;
-plot(t, yaw_deg, 'b');
-plot(t, yaw_ekf, 'r');
-xlabel('Tempo [s]');
-ylabel('Yaw [°]');
-grid on;
-hold off;
+% 
+% % Atitude
+% figure;
+% subplot(3, 1, 1);
+% hold on;
+% plot(t, roll_deg, 'b', 'DisplayName', 'Referência');
+% plot(t, roll_ekf, 'r', 'DisplayName', 'EKF');
+% xlabel('Tempo [s]');
+% ylabel('Roll [°]');
+% legend('show');
+% title('Ângulos de Atitude');
+% grid on;
+% hold off;
+% 
+% subplot(3, 1, 2);
+% hold on;
+% plot(t, pitch_deg, 'b');
+% plot(t, pitch_ekf, 'r');
+% xlabel('Tempo [s]');
+% ylabel('Pitch [°]');
+% grid on;
+% hold off;
+% 
+% subplot(3, 1, 3);
+% hold on;
+% plot(t, yaw_deg, 'b');
+% plot(t, yaw_ekf, 'r');
+% xlabel('Tempo [s]');
+% ylabel('Yaw [°]');
+% grid on;
+% hold off;

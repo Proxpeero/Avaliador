@@ -17,24 +17,24 @@ run Trajetoria.m % script com as informações de trajetória
 
 %% Módulo 02 - Sensores
 
-% % Vetor de Gravidade
-% g = [0; 0; 9.81]; 
-% 
-% % Ponto de entrada (latitude e longitude iniciais em graus)
-% lat_in = -15.793889;  % Latitude inicial (Brasília)
-% lon_in = -47.882778;  % Longitude inicial (Brasília)
-% alt_in = 1000;        % Altitude inicial (em metros)
-% 
-% % Desvio padrão dos sensores
-% std_acc = 0.1; % acelerometro
-% std_gyro = 0.2; % giroscopio
-% std_gps_LL   = 1.0e-07; % posição de GPS para latitude e longitude
-% std_gps_A   = 1.0e-02; % posição de GPS para altitude
-% std_vgps_LL   = 5.0e-02; % velocidade de GPS para latitude e longitude 
-% std_vgps_A   = 1.0e-02; % velocidade de GPS para altitude
-% std_mag = 0.5; % magnetômetro
-% 
-% run Sensores.m % script para geração de dados de sensores
+% Vetor de Gravidade
+g = [0; 0; 9.81]; 
+
+% Ponto de entrada (latitude e longitude iniciais em graus)
+lat_in = -15.793889;  % Latitude inicial (Brasília)
+lon_in = -47.882778;  % Longitude inicial (Brasília)
+alt_in = 1000;        % Altitude inicial (em metros)
+
+% Desvio padrão dos sensores
+std_acc = 0.2; % acelerometro
+std_gyro = 0.5; % giroscopio
+std_gps_LL   = 1.0e-07; % posição de GPS para latitude e longitude
+std_gps_A   = 1.0e-02; % posição de GPS para altitude
+std_vgps_LL   = 5.0e-02; % velocidade de GPS para latitude e longitude 
+std_vgps_A   = 1.0e-02; % velocidade de GPS para altitude
+std_mag = 0.5; % magnetômetro
+
+run Sensores.m % script para geração de dados de sensores
 
 %% Módulo 03 - Algoritmos de Atitude
 
@@ -48,21 +48,10 @@ k_p = 10; % ganho proporcional do filtro Mahony
 k_i = 10; % ganho integral do filtro Mahony
 run Mahony.m % script do algoritmo Mahony
 
-
 % %% EKF
-% 
-% dt = t(2) - t(1);
-% mrp_q = 1;
-% mrp_p = 10;
-% mrp_v = 100;
-% 
-% mcm_a = 1;
-% mcm_m = 1;
-% mcm_v = 1;
-% mcm_p = 1;
-% 
-% % run EKF.m % script do algoritmo EKF
-% 
+std_q = 0.001;
+run EKF.m % script do algoritmo EKF
+
 %% Módulo 04 -  Plots de Saída
 
 run Saidas.m % script com os plots de saídas

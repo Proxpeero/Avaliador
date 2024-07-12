@@ -155,11 +155,11 @@
 figure;
 subplot(3, 1, 1);
 hold on;
-plot(t, roll_deg, 'b', 'DisplayName', 'Referência');
-plot(t, roll_triad, 'r', 'DisplayName', 'TRIAD');
-plot(t, roll_quest, 'g', 'DisplayName', 'QUEST');
-plot(t, roll_mh, 'k', 'DisplayName', 'Mahony');
-% plot(t, roll_ekf, 'k', 'DisplayName', 'EKF');
+plot(t, roll_deg, 'b', 'LineWidth', 1.5, 'DisplayName', 'Referência');
+plot(t, roll_triad, 'r', 'LineWidth', 1.5, 'DisplayName', 'TRIAD');
+plot(t, roll_quest, 'g', 'LineWidth', 1.5, 'DisplayName', 'QUEST');
+plot(t, roll_mh, 'm', 'LineWidth', 1.5, 'DisplayName', 'Mahony');
+plot(t, roll_ekf, 'c', 'LineWidth', 1.5, 'DisplayName', 'EKF');
 xlabel('Tempo [s]');
 ylabel('Roll [°]');
 legend('show');
@@ -169,11 +169,11 @@ hold off;
 
 subplot(3, 1, 2);
 hold on;
-plot(t, pitch_deg, 'b');
-plot(t, pitch_triad, 'r');
-plot(t, pitch_quest, 'g');
-plot(t, pitch_mh, 'k');
-% plot(t, pitch_ekf, 'k', 'DisplayName', 'EKF');
+plot(t, pitch_deg, 'b', 'LineWidth', 1.5);
+plot(t, pitch_triad, 'r', 'LineWidth', 1.5);
+plot(t, pitch_quest, 'g', 'LineWidth', 1.5);
+plot(t, pitch_mh, 'm', 'LineWidth', 1.5);
+plot(t, pitch_ekf, 'c', 'LineWidth', 1.5);
 xlabel('Tempo [s]');
 ylabel('Pitch [°]');
 grid on;
@@ -181,78 +181,85 @@ hold off;
 
 subplot(3, 1, 3);
 hold on;
-plot(t, yaw_deg, 'b');
-plot(t, yaw_triad, 'r');
-plot(t, yaw_quest, 'g');
-plot(t, yaw_mh, 'k');
-% plot(t, yaw_ekf, 'k', 'DisplayName', 'EKF');
+plot(t, yaw_deg, 'b', 'LineWidth', 1.5);
+plot(t, yaw_triad, 'r', 'LineWidth', 1.5);
+plot(t, yaw_quest, 'g', 'LineWidth', 1.5);
+plot(t, yaw_mh, 'm', 'LineWidth', 1.5);
+plot(t, yaw_ekf, 'c', 'LineWidth', 1.5);
 xlabel('Tempo [s]');
 ylabel('Yaw [°]');
 grid on;
 hold off;
 
 %% Desempenho
-% 
-% % Número de amostras
-% N = length(t);
-% 
-% % Inicializar variáveis para armazenar RMSE ao longo do tempo
-% RMSE_roll_triad = zeros(N, 1);
-% RMSE_pitch_triad = zeros(N, 1);
-% RMSE_yaw_triad = zeros(N, 1);
-% RMSE_roll_quest = zeros(N, 1);
-% RMSE_pitch_quest = zeros(N, 1);
-% RMSE_yaw_quest = zeros(N, 1);
-% RMSE_roll_mh = zeros(N, 1);
-% RMSE_pitch_mh = zeros(N, 1);
-% RMSE_yaw_mh = zeros(N, 1);
-% 
-% for i = 1:N
-%     RMSE_roll_triad(i) = sqrt(mean((roll(1:i) - roll_triad(1:i)).^2));
-%     RMSE_pitch_triad(i) = sqrt(mean((pitch(1:i) - pitch_triad(1:i)).^2));
-%     RMSE_yaw_triad(i) = sqrt(mean((yaw(1:i) - yaw_triad(1:i)).^2));
-% 
-%     RMSE_roll_quest(i) = sqrt(mean((roll(1:i) - roll_quest(1:i)).^2));
-%     RMSE_pitch_quest(i) = sqrt(mean((pitch(1:i) - pitch_quest(1:i)).^2));
-%     RMSE_yaw_quest(i) = sqrt(mean((yaw(1:i) - yaw_quest(1:i)).^2));
-% 
-%     RMSE_roll_mh(i) = sqrt(mean((roll(1:i) - roll_mh(1:i)).^2));
-%     RMSE_pitch_mh(i) = sqrt(mean((pitch(1:i) - pitch_mh(1:i)).^2));
-%     RMSE_yaw_mh(i) = sqrt(mean((yaw(1:i) - yaw_mh(1:i)).^2));
-% end
-% 
-% figure;
-% subplot(3, 1, 1);
-% hold on;
-% plot(t, RMSE_roll_triad, 'r', 'DisplayName', 'RMSE TRIAD');
-% plot(t, RMSE_roll_quest, 'g', 'DisplayName', 'RMSE QUEST');
-% plot(t, RMSE_roll_mh, 'k', 'DisplayName', 'RMSE Mahony');
-% % plot(t, roll_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Roll [°]');
-% legend('show');
-% title('Atitude ao Longo do Tempo');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 2);
-% hold on;
-% plot(t, RMSE_pitch_triad, 'r', 'DisplayName', 'RMSE TRIAD');
-% plot(t, RMSE_pitch_quest, 'g', 'DisplayName', 'RMSE QUEST');
-% plot(t, RMSE_pitch_mh, 'k', 'DisplayName', 'RMSE Mahony');
-% % plot(t, pitch_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Pitch [°]');
-% grid on;
-% hold off;
-% 
-% subplot(3, 1, 3);
-% hold on;
-% plot(t, RMSE_yaw_triad, 'r', 'DisplayName', 'RMSE TRIAD');
-% plot(t, RMSE_yaw_quest, 'g', 'DisplayName', 'RMSE QUEST');
-% plot(t, RMSE_yaw_mh, 'k', 'DisplayName', 'RMSE Mahony');
-% % plot(t, yaw_ekf, 'k', 'DisplayName', 'EKF');
-% xlabel('Tempo [s]');
-% ylabel('Yaw [°]');
-% grid on;
-% hold off;
+
+% Número de amostras
+N = length(t);
+
+% Inicializar variáveis para armazenar RMSE ao longo do tempo
+RMSE_roll_triad = zeros(N, 1);
+RMSE_pitch_triad = zeros(N, 1);
+RMSE_yaw_triad = zeros(N, 1);
+RMSE_roll_quest = zeros(N, 1);
+RMSE_pitch_quest = zeros(N, 1);
+RMSE_yaw_quest = zeros(N, 1);
+RMSE_roll_mh = zeros(N, 1);
+RMSE_pitch_mh = zeros(N, 1);
+RMSE_yaw_mh = zeros(N, 1);
+RMSE_roll_ekf = zeros(N, 1);
+RMSE_pitch_ekf = zeros(N, 1);
+RMSE_yaw_ekf = zeros(N, 1);
+
+for i = 1:N
+    RMSE_roll_triad(i) = sqrt(mean((roll(1:i) - roll_triad(1:i)).^2));
+    RMSE_pitch_triad(i) = sqrt(mean((pitch(1:i) - pitch_triad(1:i)).^2));
+    RMSE_yaw_triad(i) = sqrt(mean((yaw(1:i) - yaw_triad(1:i)).^2));
+
+    RMSE_roll_quest(i) = sqrt(mean((roll(1:i) - roll_quest(1:i)).^2));
+    RMSE_pitch_quest(i) = sqrt(mean((pitch(1:i) - pitch_quest(1:i)).^2));
+    RMSE_yaw_quest(i) = sqrt(mean((yaw(1:i) - yaw_quest(1:i)).^2));
+
+    RMSE_roll_mh(i) = sqrt(mean((roll(1:i) - roll_mh(1:i)).^2));
+    RMSE_pitch_mh(i) = sqrt(mean((pitch(1:i) - pitch_mh(1:i)).^2));
+    RMSE_yaw_mh(i) = sqrt(mean((yaw(1:i) - yaw_mh(1:i)).^2));
+    
+    RMSE_roll_ekf(i) = sqrt(mean((roll(1:i) - roll_ekf(1:i)).^2));
+    RMSE_pitch_ekf(i) = sqrt(mean((pitch(1:i) - pitch_ekf(1:i)).^2));
+    RMSE_yaw_ekf(i) = sqrt(mean((yaw(1:i) - yaw_ekf(1:i)).^2));
+end
+
+figure;
+subplot(3, 1, 1);
+hold on;
+plot(t, RMSE_roll_triad, 'r','LineWidth', 1.5, 'DisplayName', 'RMSE TRIAD');
+plot(t, RMSE_roll_quest, 'g','LineWidth', 1.5, 'DisplayName', 'RMSE QUEST');
+plot(t, RMSE_roll_mh, 'm','LineWidth', 1.5, 'DisplayName', 'RMSE Mahony');
+plot(t, RMSE_roll_ekf, 'c','LineWidth', 1.5, 'DisplayName', 'RMSE EKF');
+xlabel('Tempo [s]');
+ylabel('Roll [°]');
+legend('show');
+title('Atitude ao Longo do Tempo');
+grid on;
+hold off;
+
+subplot(3, 1, 2);
+hold on;
+plot(t, RMSE_pitch_triad, 'r','LineWidth', 1.5);
+plot(t, RMSE_pitch_quest, 'g','LineWidth', 1.5);
+plot(t, RMSE_pitch_mh, 'm','LineWidth', 1.5);
+plot(t, RMSE_pitch_ekf, 'c','LineWidth', 1.5);
+xlabel('Tempo [s]');
+ylabel('Pitch [°]');
+grid on;
+hold off;
+
+subplot(3, 1, 3);
+hold on;
+plot(t, RMSE_yaw_triad, 'r','LineWidth', 1.5);
+plot(t, RMSE_yaw_quest, 'g','LineWidth', 1.5);
+plot(t, RMSE_yaw_mh, 'm','LineWidth', 1.5);
+ plot(t, RMSE_yaw_ekf, 'c','LineWidth', 1.5);
+xlabel('Tempo [s]');
+ylabel('Yaw [°]');
+grid on;
+hold off;
