@@ -27,11 +27,11 @@ roll_deg = wrapTo180(rad2deg(roll));
 pitch_deg = mod((mod(rad2deg(pitch), 360)) + 90, 180) - 90;
 yaw_deg = wrapTo180(rad2deg(yaw));
 
-% Velocidade Angular
+% % Velocidade Angular
 d_roll = A .* gamma .* cos(gamma .* t); 
 d_pitch = -A .* gamma .* sin(gamma .* t); 
 d_yaw = omega * ones(size(t)); 
 
-d_roll_deg = wrapTo180(rad2deg(d_roll));
-d_pitch_deg = mod((mod(rad2deg(d_pitch), 360)) + 90, 180) - 90;
-d_yaw_deg = wrapTo180(rad2deg(d_yaw));
+p = d_roll - sin(pitch).*d_yaw;
+q = cos(roll).*d_pitch + cos(pitch).*sin(roll).*d_yaw;
+r = -sin(roll).*d_pitch + cos(pitch).*cos(roll).*d_yaw;

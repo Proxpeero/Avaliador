@@ -6,7 +6,7 @@ a = [ax; ay; az];
 a_b = zeros(3, length(t));
 for i = 1:length(t)
     R = M_Rot(roll(i), pitch(i), yaw(i));
-    a_b(:, i) = R * (a(:, i) + g);
+    a_b(:, i) = R * (a(:, i) - g);
 end
 
 ax_b = a_b(1, :);
@@ -22,18 +22,19 @@ az_n = az_b + randn(size(az_b)) * std_acc;
 gyro_b = zeros(3, length(t));
 
 for i = 2:length(t)
-    R = M_Rot(roll(i), pitch(i), yaw(i));
-    omega = [d_roll(i); d_pitch(i); d_yaw(i)];
-    gyro_b(:, i) = R * omega;
+    p = d_roll(i) - sin(roll(i)) .* tan(pitch(i)) .* d_yaw(i) + cos(roll(i)) .* tan(pitch(i)) .* d_pitch(i);
+    q = cos(roll(i)) .* d_pitch(i) + sin(roll(i)) .* d_yaw(i);
+    r = cos(roll(i)) .* d_yaw(i) - sin(roll(i)) .* d_pitch(i);
+    gyro_b(:, i) = [p q r];
 end
 
-d_roll_b  = gyro_b(1, :);
-d_pitch_b = gyro_b(2, :);
-d_yaw_b   = gyro_b(3, :);
+p_b = gyro_b(1, :);
+q_b = gyro_b(2, :);
+r_b = gyro_b(3, :);
 
-d_roll_n  = d_roll_b  + randn(size(d_roll_b))  * std_gyro;
-d_pitch_n = d_pitch_b + randn(size(d_pitch_b)) * std_gyro;
-d_yaw_n   = d_yaw_b   + randn(size(d_yaw_b))   * std_gyro;
+p_n = p_b + randn(size(p_b)) * std_gyro;
+q_n = q_b + randn(size(q_b)) * std_gyro;
+r_n = r_b + randn(size(r_b)) * std_gyro;
 
 %% GPS
 % Conversão para latitude e longitude (aproximação)

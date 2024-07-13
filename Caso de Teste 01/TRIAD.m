@@ -1,6 +1,7 @@
 %% TRIAD 
 
 Att = zeros(3, length(t));
+g_t = g;
 
 for i = 1:length(t)
     
@@ -16,7 +17,7 @@ for i = 1:length(t)
     s_b = cross(q_b, r_b);
     M_b = [q_b; r_b; s_b];
     
-    v_1 = g' ./ norm(g');
+    v_1 = g_t' ./ norm(g_t');
     v_2 = h ./ norm(h);
     
     q_r = v_1;

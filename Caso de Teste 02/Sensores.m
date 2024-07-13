@@ -6,7 +6,7 @@ a = [ax; ay; az];
 a_b = zeros(3, length(t));
 for i = 1:length(t)
     R = M_Rot(roll(i), pitch(i), yaw(i));
-    a_b(:, i) = R * (a(:, i) + g);
+    a_b(:, i) = R * (a(:, i) - g);
 end
 
 ax_b = a_b(1, :);
@@ -22,18 +22,19 @@ az_n = az_b + randn(size(az_b)) * std_acc;
 gyro_b = zeros(3, length(t));
 
 for i = 2:length(t)
-    R = M_Rot(roll(i), pitch(i), yaw(i));
-    omega = [d_roll(i); d_pitch(i); d_yaw(i)];
-    gyro_b(:, i) = R * omega;
+    p_a = p(i); 
+    q_a = q(i);
+    r_a = r(i);
+    gyro_b(:, i) = [p_a q_a r_a];
 end
 
-d_roll_b  = gyro_b(1, :);
-d_pitch_b = gyro_b(2, :);
-d_yaw_b   = gyro_b(3, :);
+p_b = gyro_b(1, :);
+q_b = gyro_b(2, :);
+r_b = gyro_b(3, :);
 
-d_roll_n  = d_roll_b  + randn(size(d_roll_b))  * std_gyro;
-d_pitch_n = d_pitch_b + randn(size(d_pitch_b)) * std_gyro;
-d_yaw_n   = d_yaw_b   + randn(size(d_yaw_b))   * std_gyro;
+p_n = p_b + randn(size(p_b)) * std_gyro;
+q_n = q_b + randn(size(q_b)) * std_gyro;
+r_n = r_b + randn(size(r_b)) * std_gyro;
 
 %% GPS
 % Conversão para latitude e longitude (aproximação)
@@ -48,10 +49,6 @@ alt = alt_in + z;
 lat_n = lat + randn(size(lat)) * std_gps_LL; 
 lon_n = lon + randn(size(lon)) * std_gps_LL; 
 alt_n = alt + randn(size(alt)) * std_gps_A;
-
-vx_n = vx + randn(size(vx)) * std_vgps_LL; 
-vy_n = vy + randn(size(vy)) * std_vgps_LL; 
-vz_n = vz + randn(size(vz)) * std_vgps_A;
 
 %% Magnetômetro
 

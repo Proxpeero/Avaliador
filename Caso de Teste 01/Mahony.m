@@ -9,35 +9,38 @@ for i = 1:length(t)
     
     acc = [ax_n(i), ay_n(i), az_n(i)];
     mag = [mx_n(i), my_n(i), mz_n(i)];
-    gyro = [d_roll_n(i), d_pitch_n(i), d_yaw_n(i)];
+    gyro = [p_n(i), q_n(i), r_n(i)];
     
-    acc = acc / norm(acc);
-    mag = mag / norm(mag);
+    acc = acc ./ norm(acc);
+    mag = mag ./ norm(mag);
     
-    v = [2*(q(2)*q(4) - q(1)*q(3));
-         2*(q(1)*q(2) + q(3)*q(4));
-         q(1)^2 - q(2)^2 - q(3)^2 + q(4)^2];
-     
-    h = [2*mag(1)*(0.5 - q(3)^2 - q(4)^2) + 2*mag(2)*(q(2)*q(3) - q(1)*q(4)) + 2*mag(3)*(q(2)*q(4) + q(1)*q(3));
-         2*mag(1)*(q(2)*q(3) + q(1)*q(4)) + 2*mag(2)*(0.5 - q(2)^2 - q(4)^2) + 2*mag(3)*(q(3)*q(4) - q(1)*q(2));
-         2*mag(1)*(q(2)*q(4) - q(1)*q(3)) + 2*mag(2)*(q(3)*q(4) + q(1)*q(2)) + 2*mag(3)*(0.5 - q(2)^2 - q(3)^2)]; 
-        
-    b = [sqrt((h(1)^2) + (h(2)^2));
-         0;
-         h(3)];
+    v = [2*(q(2).*q(4) - q(1).*q(3));
+         2*(q(1).*q(2) + q(3).*q(4));
+         q(1).^2 - q(2).^2 - q(3).^2 + q(4).^2];
+    
+    h = QQ(q, QQ([0 mag], [q(:,1) -q(:,2) -q(:,3) -q(:,4)]));
+    
+    b = [0 norm([h(2) h(3)]) 0 h(4)];
 
     w = [2*b(1)*(0.5 - q(3)^2 - q(4)^2) + 2*b(3)*(q(2)*q(4) - q(1)*q(3));
          2*b(1)*(q(2)*q(3) - q(1)*q(4)) + 2*b(3)*(q(1)*q(2) + q(3)*q(4));
          2*b(1)*(q(1)*q(3) + q(2)*q(4)) + 2*b(3)*(0.5 - q(2)^2 - q(3)^2)];
      
     e = cross(acc, v) + cross(mag, w);
-    eInt = eInt + e * dt;
-    gyro = gyro + k_p * e + k_i * eInt;
-    qDot = 0.5 * QQ(-q, [0 gyro(1) gyro(2) gyro(3)]);
+    
+    if(k_i > 0)
+      eInt = eInt + e * dt;   
+    else
+      eInt = [0 0 0];
+    end
+    
+    eInt = eInt + e .* dt;
+    gyro = gyro + k_p .* e + k_i .* eInt;
+    qDot = 0.5 .* QQ(q, [0 gyro(1) gyro(2) gyro(3)]);
 
-    q = q + qDot' * dt;
+    q = q + qDot * dt;
     q = q / norm(q);
-    Att(:, i) = Q2E(q);
+    Att(:, i) = Q2E2(q);
 end
 
 roll_mh = wrapTo180(rad2deg(Att(1, :)));
